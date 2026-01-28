@@ -1,21 +1,25 @@
-document.getElementById("run").onclick = async () => {
-    const javaCode = window.getEditor().getValue();
-    console.log("Java code:", javaCode);
+async function initTeaVM() {
+    const teavmModule = await Teavm.load({
+        wasmBinaryFile: 'teavm/teavm.wasm',
+        jsFile: 'teavm/teavm.js'
+    });
 
-    try {
-        // Compile Java code to JS in-browser
-        // `teavmCompile` is provided by TeaVM WASM runtime
-        const compiledJS = await teavmCompile(javaCode, "Sketch"); 
+    document.getElementById("run").onclick = async () => {
+        const javaCode = window.getEditor().getValue();
+        console.log("Java code:", javaCode);
 
-        console.log("Compiled JS:", compiledJS);
+        try {
+            const compiledJS = await teavmModule.compileJava(javaCode, "Sketch"); 
+            console.log("Compiled JS:", compiledJS);
 
-        // Run the compiled JS
-        const script = document.createElement("script");
-        script.textContent = compiledJS;
-        document.body.appendChild(script);
+            // Run the compiled JS
+            eval(compiledJS);
 
-    } catch (err) {
-        console.error("Compilation error:", err);
-        alert("Failed to compile Java code!");
-    }
-};
+        } catch (err) {
+            console.error("Compilation error:", err);
+            alert("Failed to compile Java code!");
+        }
+    };
+}
+
+initTeaVM();
