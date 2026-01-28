@@ -1,1 +1,30 @@
-//hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Monaco Editor Test</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+    }
+    #editor {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+    <text>JE javascript editor</text>
+    <button id = "run">Run</button>
+    <div id="editor"></div>// monaco editor
+
+    <script src="https://unpkg.com/monaco-editor@0.45.0/min/vs/loader.js"></script>
+    <script src="editor.js"></script>//load monaco editor
+    <script>
+        window.initEditor();// initlialize monaco editor
+    </script>
+    <script src="main.js"></script>// website functionality
+
+</body>
+</html>
