@@ -1,0 +1,3 @@
+backend/
+ ├─ server.js   ← your Node.js server
+ └─ package.json
